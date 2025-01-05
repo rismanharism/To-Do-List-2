@@ -1,0 +1,27 @@
+<%- include('layout'); -%> <!-- Memanggil layout.ejs -->
+
+<!-- Form untuk menambah task baru -->
+<form action="/add" method="post">
+    <input type="text" name="title" placeholder="Add a new task" required>
+    <button type="submit">Add Task</button>
+</form>
+
+<!-- Daftar tugas -->
+<ul>
+    <% todos.forEach(todo => { %>
+        <li>
+            <!-- Form untuk memperbarui status tugas -->
+            <form action="/update/<%= todo.id %>" method="post">
+                <input type="checkbox" name="completed" value="true" <%= todo.completed ? 'checked' : '' %> onchange="this.form.submit()">
+            </form>
+            
+            <!-- Judul tugas -->
+            <span><%= todo.title %></span>
+            
+            <!-- Form untuk menghapus tugas -->
+            <form action="/delete/<%= todo.id %>" method="post" style="display:inline;">
+                <button type="submit">Delete</button>
+            </form>
+        </li>
+    <% }); %>
+</ul>
